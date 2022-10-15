@@ -4,7 +4,7 @@ secrets:
 global:
   backendPort: 8080
   appName: momo-store
-  environment: test
+  environment: staging
   imageRegistry: gitlab.praktikum-services.ru:5050/anton-alekseyev/momo-store
 
 backend:
@@ -31,7 +31,8 @@ backend:
 
 frontend:
   name: momo-frontend
-  fqdn: "05-anton-alekseev.k8s.praktikum-services.tech"
+  fqdn: "momo-store-stage.virtulab-services.ml"
+  letsencryptEmail: "gorlym2699@yandex.ru"
   port: 80
   replicas: 1
   image:
