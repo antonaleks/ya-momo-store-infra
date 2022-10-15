@@ -1,0 +1,46 @@
+secrets:
+  dockerConfigJson: "ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogIlpYSmhhMmh0WlhSNmVXRnViM1k2TlZrNWNESnlSM05RUVcxSFVIST0iCgkJfQoJfQp9"
+
+global:
+  backendPort: 8080
+  appName: momo-store
+  environment: test
+  imageRegistry: gitlab.praktikum-services.ru:5050/anton-alekseyev/momo-store
+
+backend:
+  name: momo-backend
+  revisionHistoryLimit: 15
+  replicas: 3
+  monitor:
+    port: 8080
+    scrape: true
+    endpoint: /actuator/prometheus
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 20%
+  image:
+    name: "momo-backend"
+    tag: "latest"
+  hpa:
+    resources:
+      minReplicas: 1
+      maxReplicas: 5
+      averageUtilization: 75
+
+frontend:
+  name: momo-frontend
+  fqdn: "05-anton-alekseev.k8s.praktikum-services.tech"
+  port: 80
+  replicas: 1
+  image:
+    name: "momo-frontend"
+    tag: "latest"
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"

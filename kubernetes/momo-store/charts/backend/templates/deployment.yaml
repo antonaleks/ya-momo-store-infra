@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-{{ .Release.Name }}"
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    {{- include "momo-store.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 20%
+  selector:
+    matchLabels:
+      app: "{{ .Values.name }}"
+  template:
+    metadata:
+#      annotations:
+#        prometheus.io/path: {{ .Values.monitor.endpoint }}
+#        prometheus.io/port: "{{ .Values.monitor.port }}"
+#        prometheus.io/scrape: "{{ .Values.monitor.scrape }}"
+      labels:
+        app: "{{ .Values.name }}"
+    spec:
+      containers:
+        - image: {{ .Values.global.imageRegistry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          name: "{{ .Values.name }}"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BACKEND_PORT
+              value: "{{ .Values.global.backendPort }}"
+          ports:
+            - name: backend
+              containerPort: {{ .Values.global.backendPort | int }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.global.backendPort | int }}
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 2
+            failureThreshold: 6
+      imagePullSecrets:
+        - name: docker-config-secret-helm
