@@ -38,7 +38,7 @@ frontend:
   monitor:
     port: 80
     scrape: true
-    endpoint: /metrics
+    endpoint: /check
   image:
     name: "momo-frontend"
     tag: "1.0.237234"
