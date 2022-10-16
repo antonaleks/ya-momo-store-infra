@@ -44,21 +44,20 @@ variable "k8s_node_vars" {
       cpu         = "2",
       platform_id = "standard-v1",
       size = "30"
+    },
+    {
+      type        = "production",
+      ram         = "4",
+      cpu         = "2",
+      platform_id = "standard-v1",
+      size = "30"
+    },
+    {
+      type        = "infra",
+      ram         = "4",
+      cpu         = "2",
+      platform_id = "standard-v1",
+      size = "30"
     }
-#  ,
-#    {
-#      type        = "production",
-#      ram         = "4",
-#      cpu         = "2",
-#      platform_id = "standard-v1",
-#      size = "30"
-#    },
-#    {
-#      type        = "infra",
-#      ram         = "4",
-#      cpu         = "2",
-#      platform_id = "standard-v1",
-#      size = "30"
-#    }
   ]
 }
