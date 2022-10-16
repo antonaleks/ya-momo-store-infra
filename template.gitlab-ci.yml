@@ -16,6 +16,8 @@
         --set backend.image.tag=${BACKEND_DOCKER_TAG} \
         --set frontend.letsencryptEmail=${LETSENCRYPT_EMAIL} \
         --atomic --timeout 15m \
+        --namespace momo-store-$ENVIRONMENT_TYPE \
+        --create-namespace \
           nexus/momo-store
   after_script:
     - rm $HOME/.kube/config
