@@ -25,23 +25,23 @@ upload-helm:
   after_script:
     - rm $HOME/.kube/config
 
-deploy-helm-staging:
+deploy-helm-production:
   stage: deploy-production
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
+      when: manual
+    - when: never
   extends: .deploy-helm
   variables:
     MOMO_STORE_URL: $MOMO_STORE_URL_PRODUCTION
     ENVIRONMENT_TYPE: production
   environment:
-    name: momo-staging
+    name: momo-production
     url: https://$MOMO_STORE_URL_PRODUCTION
 
-deploy-helm-production:
+deploy-helm-staging:
   stage: deploy-staging
   extends: .deploy-helm
-  rules:
-    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
-      when: manual
-    - when: never
   variables:
     MOMO_STORE_URL: $MOMO_STORE_URL_STAGING
     ENVIRONMENT_TYPE: staging
