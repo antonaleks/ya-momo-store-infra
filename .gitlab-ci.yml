@@ -9,4 +9,4 @@ helm-deploy:
     strategy: depend
   only:
     changes:
-      - kubernetes/**/*
+      - kubernetes/momo-store/**/*

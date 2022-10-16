@@ -35,6 +35,10 @@ frontend:
   letsencryptEmail: ""
   port: 80
   replicas: 1
+  monitor:
+    port: 8080
+    scrape: true
+    endpoint: /actuator/prometheus
   image:
     name: "momo-frontend"
     tag: "1.0.237234"
