@@ -30,6 +30,6 @@ variable "sa_name" {
 
 variable "bucket_name" {
   description = "имя бакета"
-  type        = string
-  default     = "s3-terraform-state"
+  type        = list(string)
+  default     = ["s3-terraform-state", "s3-momo-store-bucket"]
 }
