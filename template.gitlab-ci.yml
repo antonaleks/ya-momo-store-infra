@@ -1,9 +1,5 @@
 .deploy-helm: &deploy-helm
   image: lwolf/helm-kubectl-docker:v1.21.1-v3.6.0
-  rules:
-      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-        when: manual
-          - when: on_success
   before_script:
     - mkdir -p $HOME/.kube
     - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
