@@ -4,7 +4,7 @@ secrets:
 global:
   backendPort: 8080
   appName: momo-store
-  environment: staging
+  environment: production
   imageRegistry: gitlab.praktikum-services.ru:5050/anton-alekseyev/momo-store
 
 backend:
@@ -22,7 +22,7 @@ backend:
       maxSurge: 20%
   image:
     name: "momo-backend"
-    tag: "latest"
+    tag: "1.0.237235"
   hpa:
     resources:
       minReplicas: 1
@@ -37,7 +37,7 @@ frontend:
   replicas: 1
   image:
     name: "momo-frontend"
-    tag: "latest"
+    tag: "1.0.237234"
   resources:
     requests:
       memory: "64Mi"
