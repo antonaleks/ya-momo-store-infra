@@ -19,9 +19,9 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/path: "{{ .Values.monitor.endpoint }}"
-        prometheus.io/port: "{{ .Values.monitor.port }}"
-        prometheus.io/scrape: "{{ .Values.monitor.scrape }}"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
       labels:
         app: "{{ .Values.name }}"
     spec:
