@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: momo-{{ .Values.global.environment }}
+  name: letsencrypt-{{ .Chart.Name }}
   namespace: cert-manager
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: {{ .Values.letsencryptEmail }}
+    email: gorlym2699@yandex.ru
     privateKeySecretRef:
-      name: momo-{{ .Values.global.environment }}
+      name: letsencrypt-{{ .Chart.Name }}
     solvers:
     - http01:
         ingress:
