@@ -12,6 +12,7 @@ upload-helm:
   before_script:
     - mkdir -p $HOME/.kube
     - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+    - echo -n $KUBE_CA | base64 -d > $HOME/.kube/ca.pem
     - apk --no-cache add curl
   script:
     - cd kubernetes
@@ -23,10 +24,6 @@ upload-helm:
 deploy-helm-staging:
   stage: deploy-production
   extends: .deploy-helm
-  rules:
-    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
-      when: manual
-    - when: never
   variables:
     MOMO_STORE_URL: $MOMO_STORE_URL_PRODUCTION
     ENVIRONMENT_TYPE: production
@@ -37,6 +34,10 @@ deploy-helm-staging:
 deploy-helm-production:
   stage: deploy-staging
   extends: .deploy-helm
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
+      when: manual
+    - when: never
   variables:
     MOMO_STORE_URL: $MOMO_STORE_URL_STAGING
     ENVIRONMENT_TYPE: staging
@@ -53,6 +54,7 @@ deploy-helm-production:
   before_script:
     - mkdir -p $HOME/.kube
     - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+    - echo -n $KUBE_CA | base64 -d > $HOME/.kube/ca.pem
   script:
     - helm repo add nexus $NEXUS_REPO_HELM_URL --username ${NEXUS_REPO_USER} --password $(echo $NEXUS_REPO_PASS | base64 -d)
     - helm repo update
