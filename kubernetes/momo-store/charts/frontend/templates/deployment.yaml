@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/path: {{ .Values.monitor.endpoint }}
+        prometheus.io/path: "{{ .Values.monitor.endpoint }}"
         prometheus.io/port: "{{ .Values.monitor.port }}"
         prometheus.io/scrape: "{{ .Values.monitor.scrape }}"
       labels:
