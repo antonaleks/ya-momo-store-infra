@@ -17,7 +17,8 @@ resource "yandex_kubernetes_cluster" "k8s-zonal" {
   service_account_id      = yandex_iam_service_account.k8s-sa-account.id
   node_service_account_id = yandex_iam_service_account.k8s-sa-account.id
   depends_on              = [
-    yandex_resourcemanager_folder_iam_binding.k8s-admin,
+    yandex_resourcemanager_folder_iam_binding.k8s-editor,
+    yandex_resourcemanager_folder_iam_binding.k8s-puller,
   ]
 }
 
@@ -87,10 +88,19 @@ resource "yandex_iam_service_account" "k8s-sa-account" {
   description = "K8S zonal service account"
 }
 
-resource "yandex_resourcemanager_folder_iam_binding" "k8s-admin" {
+resource "yandex_resourcemanager_folder_iam_binding" "k8s-editor" {
   # Сервисному аккаунту назначается роль "admin".
   folder_id = local.folder_id
-  role      = "admin"
+  role      = "editor"
+  members   = [
+    "serviceAccount:${yandex_iam_service_account.k8s-sa-account.id}"
+  ]
+}
+
+resource "yandex_resourcemanager_folder_iam_binding" "k8s-puller" {
+  # Сервисному аккаунту назначается роль "container-registry.images.puller".
+  folder_id = local.folder_id
+  role      = "container-registry.images.puller"
   members   = [
     "serviceAccount:${yandex_iam_service_account.k8s-sa-account.id}"
   ]

@@ -1,10 +1,10 @@
 secrets:
-  dockerConfigJson: "ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogIlpYSmhhMmh0WlhSNmVXRnViM1k2TlZrNWNESnlSM05RUVcxSFVIST0iCgkJfQoJfQp9"
+  dockerConfigJson: ""
 
 global:
   backendPort: 8080
   appName: momo-store
-  environment: staging
+  environment: production
   imageRegistry: gitlab.praktikum-services.ru:5050/anton-alekseyev/momo-store
 
 backend:
@@ -22,7 +22,7 @@ backend:
       maxSurge: 20%
   image:
     name: "momo-backend"
-    tag: "latest"
+    tag: "1.0.237235"
   hpa:
     resources:
       minReplicas: 1
@@ -32,12 +32,12 @@ backend:
 frontend:
   name: momo-frontend
   fqdn: "momo-store-stage.virtulab-services.ml"
-  letsencryptEmail: "gorlym2699@yandex.ru"
+  letsencryptEmail: ""
   port: 80
   replicas: 1
   image:
     name: "momo-frontend"
-    tag: "latest"
+    tag: "1.0.237234"
   resources:
     requests:
       memory: "64Mi"

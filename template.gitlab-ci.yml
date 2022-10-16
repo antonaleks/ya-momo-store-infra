@@ -1,0 +1,23 @@
+.deploy-helm: &deploy-helm
+  image: lwolf/helm-kubectl-docker:v1.21.1-v3.6.0
+  before_script:
+    - mkdir -p $HOME/.kube
+    - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+    - echo -n $KUBE_CA | base64 -d > $HOME/.kube/ca.pem
+  script:
+    - helm repo add nexus $NEXUS_REPO_HELM_URL --username ${NEXUS_REPO_USER} --password $(echo $NEXUS_REPO_PASS | base64 -d)
+    - helm repo update
+    - >
+      helm upgrade --install momo-store-$ENVIRONMENT_TYPE \
+        --set environment=$ENVIRONMENT_TYPE \
+        --set frontend.fqdn=${MOMO_STORE_URL} \
+        --set secrets.dockerConfigJson=${DOCKER_CONFIG_JSON} \
+        --set frontend.image.tag=${FRONTEND_DOCKER_TAG} \
+        --set backend.image.tag=${BACKEND_DOCKER_TAG} \
+        --set frontend.letsencryptEmail=${LETSENCRYPT_EMAIL} \
+        --atomic --timeout 15m \
+        --namespace momo-store-$ENVIRONMENT_TYPE \
+        --create-namespace \
+          nexus/momo-store
+  after_script:
+    - rm $HOME/.kube/config
