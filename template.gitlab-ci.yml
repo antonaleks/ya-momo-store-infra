@@ -9,7 +9,7 @@
     - helm repo update
     - >
       helm upgrade --install momo-store-$ENVIRONMENT_TYPE \
-        --set environment=$ENVIRONMENT_TYPE \
+        --set global.environment=$ENVIRONMENT_TYPE \
         --set frontend.fqdn=${MOMO_STORE_URL} \
         --set secrets.dockerConfigJson=${DOCKER_CONFIG_JSON} \
         --set frontend.image.tag=${FRONTEND_DOCKER_TAG} \

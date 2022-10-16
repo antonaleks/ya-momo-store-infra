@@ -4,7 +4,7 @@ secrets:
 global:
   backendPort: 8080
   appName: momo-store
-  environment: production
+  environment: staging
   imageRegistry: gitlab.praktikum-services.ru:5050/anton-alekseyev/momo-store
 
 backend:

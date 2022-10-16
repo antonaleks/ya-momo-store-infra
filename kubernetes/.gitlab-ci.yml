@@ -9,7 +9,6 @@ variables:
 include:
   - local: /template.gitlab-ci.yml
 
-
 upload-helm:
   stage: release
   image: lwolf/helm-kubectl-docker:v1.21.1-v3.6.0
@@ -48,30 +47,3 @@ deploy-helm-staging:
   environment:
     name: momo-staging
     url: https://$MOMO_STORE_URL_STAGING
-
-
-.deploy-argocd:
-  stage: deploy
-  image: argoproj/argocd:v2.3.3
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
-    - when: on_success
-  environment:
-    name: dev-helm
-    url: https://$SAUSAGE_STORE_URL
-  script:
-    - >
-      argocd --grpc-web --auth-token $ARGO_TOKEN \
-            --server $ARGO_SERVER app set $ARGO_APP --revision $VERSION \
-            -p environment=test \
-            -p frontend.fqdn=${SAUSAGE_STORE_URL} \
-            -p secrets.vaultToken=${VAULT_TOKEN}\
-            -p secrets.vaultHost=${VAULT_HOST} \
-            -p secrets.postgresHost=${PSQL_HOST}\
-            -p secrets.postgresPort=${PSQL_PORT}\
-            -p secrets.postgresDBName=${PSQL_DBNAME}\
-            -p secrets.dockerConfigJson=${DOCKER_CONFIG_JSON} \
-            -p backend.image.tag=${BACKEND_DOCKER_TAG} \
-            -p frontend.image.tag=${FRONTEND_DOCKER_TAG} \
-            -p backend-report.image.tag=${BACKEND_REPORT_DOCKER_TAG}
