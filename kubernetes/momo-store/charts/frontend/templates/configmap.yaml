@@ -29,10 +29,4 @@ data:
         try_files $uri $uri/ /check.html;
       }
 
-      location /check {
-        root   /usr/share/nginx/html;
-        index  check.html;
-        try_files $uri $uri/ /check.html;
-      }
-
     }
