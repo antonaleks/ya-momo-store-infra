@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "momo-store-prometheus.virtulab-services.ml"
+        - {{ .Values.fqdn }}
       secretName: letsencrypt-{{ .Chart.Name }}
   rules:
-  - host: "momo-store-prometheus.virtulab-services.ml"
+  - host: {{ .Values.fqdn }}
     http:
       paths:
       - path: /
@@ -25,4 +25,4 @@ spec:
           service:
             name: prometheus
             port:
-              number: 9090
+              number: {{ .Values.port }}

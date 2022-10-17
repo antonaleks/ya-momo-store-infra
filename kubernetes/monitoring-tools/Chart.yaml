@@ -1,0 +1,16 @@
+apiVersion: v2
+type: application
+name: momo-monitoring
+description: Momo monitoring for Momo Store
+
+version: 0.1.1
+appVersion: "latest"
+
+dependencies:
+  - name: grafana
+    version: 0.0.1
+  - name: prometheus
+    version: 0.0.1
+  - name: loki-stack
+    version: v2.1.2
+    repository: https://grafana.github.io/loki/charts

@@ -1,0 +1,22 @@
+global:
+  letsencryptEmail: gorlym2699@yandex.ru
+
+grafana:
+  fqdn: "momo-grafana.virtulab-services.ml"
+  port: 3000
+  storage:
+    size: 1Gi
+  image:
+    name: "grafana/grafana"
+    tag: "8.4.4"
+
+prometheus:
+  fqdn: "momo-store-prometheus.virtulab-services.ml"
+  port: 9090
+  image:
+    name: "prom/prometheus"
+    tag: "v2.39.1"
+  scrape:
+    namespaces:
+      - momo-store-staging
+      - momo-store-production

@@ -16,10 +16,7 @@ data:
       kubernetes_sd_configs:
       - role: pod
         namespaces:
-          names:
-          - {{ .Release.Namespace }}
-          - momo-store-staging
-          - momo-store-production
+          names: {{ .Values.scrape.namespaces | toJson}}
       relabel_configs:
       - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
         action: keep
