@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: gorlym2699@yandex.ru
+    email: {{ .Values.global.letsencryptEmail }}
     privateKeySecretRef:
       name: letsencrypt-{{ .Chart.Name }}
     solvers:
