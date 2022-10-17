@@ -24,4 +24,10 @@ data:
         proxy_redirect http://localhost/rest http://momo-backend:{{ .Values.global.backendPort | int }}/;
       }
 
+      location /check {
+        root   /usr/share/nginx/html;
+        index  check.html;
+        try_files $uri $uri/ /check.html;
+      }
+
     }
