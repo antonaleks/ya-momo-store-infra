@@ -21,7 +21,6 @@ data:
 
       location /rest/ {
         proxy_pass  http://momo-backend:{{ .Values.global.backendPort | int }}/;
-        proxy_redirect http://localhost/rest http://momo-backend:{{ .Values.global.backendPort | int }}/;
       }
 
       location /check {
