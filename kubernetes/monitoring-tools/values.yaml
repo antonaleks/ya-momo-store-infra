@@ -2,7 +2,7 @@ global:
   letsencryptEmail: gorlym2699@yandex.ru
 
 grafana:
-  fqdn: "momo-grafana.virtulab-services.ml"
+  fqdn: "momo-store-grafana.virtulab-services.ml"
   port: 3000
   storage:
     size: 1Gi
