@@ -138,3 +138,11 @@ helm upgrade --install momo-monitoring \
 В [дашборде](https://momo-store-grafana.virtulab-services.ml/d/TqVopPS4k/momo-store?orgId=1) выведены метрики приложения и логи.
 Можно переключаться между production и staging сегментом. Логин пароль admin/admin
 2. В [интерфейсе](https://momo-store-prometheus.virtulab-services.ml/graph?g0.expr=&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h) prometheus можно посмотреть таргеты и поискать текущие метрики
+
+### О правилах внесения изменения в инфраструктуру
+Для внесения изменения в инфраструктуру необходимо создать новую ветку от main, залить изменения и сделать merge request.
+После получения апрува можно смерджить ветки.
+### О релизном цикле приложения и правилах версионирования
+Версионирование ведется по semver.
+Версия чартов изменяется каждый раз, когда запускается pipeline.
+Мажорная версия изменяется вручную.
