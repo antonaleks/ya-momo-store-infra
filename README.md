@@ -133,3 +133,8 @@ helm upgrade --install momo-monitoring \
         --namespace infra \
         --create-namespace ./
 ```
+#### Конфигурация сервиса мониторинга приложения Momo Store
+1. В интерфейсе [grafana](https://momo-store-grafana.virtulab-services.ml/) настроены data sources для loki и prometheus.
+В [дашборде](https://momo-store-grafana.virtulab-services.ml/d/TqVopPS4k/momo-store?orgId=1) выведены метрики приложения и логи.
+Можно переключаться между production и staging сегментом. Логин пароль admin/admin
+2. В [интерфейсе](https://momo-store-prometheus.virtulab-services.ml/graph?g0.expr=&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h) prometheus можно посмотреть таргеты и поискать текущие метрики
