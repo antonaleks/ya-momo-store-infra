@@ -1,5 +1,5 @@
 global:
-  letsencryptEmail: gorlym2699@yandex.ru
+  letsencryptEmail:
 
 grafana:
   fqdn: "momo-store-grafana.virtulab-services.ml"
