@@ -3,6 +3,17 @@ kind: Deployment
 metadata:
   name: grafana
   namespace: {{ .Release.Namespace }}
+  dynamic-pvc-provisioner.kubernetes.io/grafana-pv.enabled: "true"
+  dynamic-pvc-provisioner.kubernetes.io/grafana-pv.pvc: |
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    spec:
+      storageClassName: reclaimable-storage-class
+      resources:
+        requests:
+          storage: 1Gi
+      accessModes:
+        - ReadWriteOnce
 spec:
   selector:
     matchLabels:
